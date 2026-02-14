@@ -8,7 +8,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "api:generate": "orval",
+    "api:watch": "orval --watch"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
