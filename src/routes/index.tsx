@@ -1,13 +1,15 @@
-import { createRoute, createRouter } from '@tanstack/react-router';
+import { createRoute, createRouter, useNavigate } from '@tanstack/react-router';
 import { rootRoute } from './__root';
 import { authenticatedRoute } from './authenticated';
 import { publicRoute } from './public';
+import { LoginPage } from '@/features/auth/components/login-page';
+import { useAuthStore } from '@/stores/auth-store';
 
 // public
 const loginRoute = createRoute({
   getParentRoute: () => publicRoute,
   path: '/login',
-  component: () => <div>Login (TODO)</div>,
+  component: LoginPage,
 });
 
 const invitationAcceptRoute = createRoute({
@@ -32,7 +34,21 @@ const passwordResetConfirmRoute = createRoute({
 const dashboardRoute = createRoute({
   getParentRoute: () => authenticatedRoute,
   path: '/',
-  component: () => <div>Dashboard (TODO)</div>,
+  component: function Dashboard() {
+    const navigate = useNavigate()
+    const logout = useAuthStore((s) => s.logout)
+    return (
+      <div className="p-8">
+        <h1>Dashboard (TODO)</h1>
+        <button
+          onClick={() => { logout(); navigate({ to: '/login' }) }}
+          className="mt-4 rounded bg-black px-4 py-2 text-white"
+        >
+          Abmelden
+        </button>
+      </div>
+    )
+  },
 });
 
 const skillsRoute = createRoute({
